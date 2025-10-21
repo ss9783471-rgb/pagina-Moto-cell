@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -20,7 +19,6 @@ nav ul li a:hover { color:#c40000; }
 .buscador input { padding:8px; border:1px solid #ccc; border-radius:6px; width:70%; }
 .buscador button { padding:8px 15px; background:#c40000; border:none; color:#fff; border-radius:6px; cursor:pointer; transition:0.3s; }
 .buscador button:hover { background:#830c0c; }
-
 /* BOTÓN SESIÓN */
 #btnSesion { text-decoration:none; display:inline-block; }
 
@@ -36,7 +34,8 @@ nav ul li a:hover { color:#c40000; }
 .boton-link:hover { background:#830c0c; transform:scale(1.05); }
 .prev, .next { position:absolute; top:50%; transform:translateY(-50%); background:rgba(0,0,0,0.4); color:#fff; font-size:2rem; border:none; padding:8px 12px; cursor:pointer; border-radius:5px; transition:0.3s; z-index:2; }
 .prev:hover, .next:hover { background:rgba(0,0,0,0.7); }
-.prev { left:20px; } .next { right:20px; }
+.prev { left:20px; }
+.next { right:20px; }
 
 /* SOBRE NOSOTROS */
 .titulo-previo-sobre { text-align:center; font-size:2.8rem; color:#c40000; margin:80px 0 40px; font-weight:800; text-transform:uppercase; }
@@ -49,7 +48,8 @@ nav ul li a:hover { color:#c40000; }
 .slide-sobre p { font-size:1rem; line-height:1.6; }
 .prev-sobre, .next-sobre { position:absolute; top:50%; transform:translateY(-50%); background:rgba(0,0,0,0.5); color:white; font-size:2rem; border:none; padding:8px 15px; cursor:pointer; border-radius:6px; transition:0.3s; }
 .prev-sobre:hover, .next-sobre:hover { background:rgba(0,0,0,0.8); }
-.prev-sobre { left:10px; } .next-sobre { right:10px; }
+.prev-sobre { left:10px; }
+.next-sobre { right:10px; }
 
 /* COMENTARIOS */
 .comentarios-contenedor { display:flex; gap:20px; overflow-x:auto; padding-bottom:10px; justify-content:center; flex-wrap:wrap; }
@@ -62,27 +62,8 @@ nav ul li a:hover { color:#c40000; }
 .comentario-card .contenido p { font-size:0.95rem; line-height:1.4; color:#333; }
 
 /* BOTÓN ENVIAR COMENTARIO */
-.boton-comentario {
-  display:block;
-  max-width:250px;
-  margin:50px auto 50px auto;
-  padding:12px 20px;
-  font-size:1rem;
-  font-weight:600;
-  color:#fff;
-  background: linear-gradient(135deg, #c40000, #ff1a1a);
-  border-radius:8px;
-  box-shadow:0 6px 15px rgba(0,0,0,0.2);
-  text-align:center;
-  cursor:pointer;
-  transition: all 0.3s ease;
-  text-decoration:none;
-}
-.boton-comentario:hover {
-  transform: translateY(-2px) scale(1.05);
-  box-shadow:0 10px 20px rgba(0,0,0,0.3);
-  background: linear-gradient(135deg, #ff1a1a, #c40000);
-}
+.boton-comentario { display:block; max-width:250px; margin:50px auto 50px auto; padding:12px 20px; font-size:1rem; font-weight:600; color:#fff; background: linear-gradient(135deg, #c40000, #ff1a1a); border-radius:8px; box-shadow:0 6px 15px rgba(0,0,0,0.2); text-align:center; cursor:pointer; transition: all 0.3s ease; text-decoration:none; }
+.boton-comentario:hover { transform: translateY(-2px) scale(1.05); box-shadow:0 10px 20px rgba(0,0,0,0.3); background: linear-gradient(135deg, #ff1a1a, #c40000); }
 
 /* CONTACTO & FOOTER */
 #contacto { background:#111; color:#fff; text-align:center; padding:50px 20px; }
@@ -92,15 +73,14 @@ footer { background:#000; color:#fff; text-align:center; padding:15px 20px; font
 
 /* RESPONSIVE */
 @media(max-width:768px){
-  .overlay h1{font-size:2rem;} 
-  .overlay h3{font-size:1rem;} 
-  .buscador{display:none;} 
+  .overlay h1{font-size:2rem;}
+  .overlay h3{font-size:1rem;}
+  .buscador{display:none;}
   .comentarios-contenedor{flex-wrap:wrap;}
 }
 </style>
 </head>
 <body>
-
 <header>
   <nav>
     <div class="logo"><img src="./moto.png" alt="Logo"><h1>Moto-Cell</h1></div>
@@ -113,8 +93,7 @@ footer { background:#000; color:#fff; text-align:center; padding:15px 20px; font
       <li><a href="servicios.html">Servicios</a></li>
       <li><a href="catalogo.html" id="linkCatalogo">Productos</a></li>
       <li><a href="contactenos.html">Contáctenos</a></li>
-      <li><a href="carrito.html" style="position:relative;">
-        Carrito 🛒
+      <li><a href="carrito.html" style="position:relative;"> Carrito 🛒
         <span id="contador-carrito" style="position:absolute;top:-8px;right:-12px;background:#c40000;color:white;border-radius:50%;padding:2px 7px;font-size:12px;">0</span>
       </a></li>
       <li><a href="#" id="btnSesion" style="background:#c40000;color:white;padding:10px 18px;border-radius:8px;font-weight:bold;">Iniciar Sesión</a></li>
@@ -125,7 +104,7 @@ footer { background:#000; color:#fff; text-align:center; padding:15px 20px; font
 <!-- CARRUSEL PRINCIPAL -->
 <section id="inicio" class="inicio-contenedor">
   <div class="slide active">
-    <img src="https://img.freepik.com/fotos-premium/parte-trasera-motocicleta-moderna-deportiva-es-negra-hay-humo-fondo-ilustracion-3d_717906-117620.jpg" alt="">
+    <img src="https://p4.wallpaperbetter.com/wallpaper/362/277/203/bikes-motorcycle-1920x1080-cool-wallpaper-preview.jpg" alt="">
     <div class="overlay">
       <h1>MOTO-CELL</h1>
       <h3>Pasión por la velocidad y el estilo</h3>
@@ -141,7 +120,7 @@ footer { background:#000; color:#fff; text-align:center; padding:15px 20px; font
     </div>
   </div>
   <div class="slide">
-    <img src="https://cdn.fondospantallahd.com/2025/03/6fGJYThW-fondos-de-pantalla-Motos-99.webp" alt="">
+    <img src="https://img.freepik.com/foto-gratis/moto-genial-al-aire-libre_23-2150781538.jpg?semt=ais_hybrid&w=740&q=80" alt="">
     <div class="overlay">
       <h1>ACCESORIOS PREMIUM</h1>
       <h3>Todo para tu moto en un solo lugar</h3>
@@ -159,7 +138,7 @@ footer { background:#000; color:#fff; text-align:center; padding:15px 20px; font
     <div class="slides-sobre">
       <div class="slide-sobre">
         <h3>Nuestra Historia</h3>
-        <p>En Moto-cell nos apasiona el mundo de las motos desde hace más de 10 años...</p>
+        <p>En esta pagina de motos ofrecemos diferentes servicios, como de mantenimiento y de cambio de neumaticos. Tambien tenemos diferentes estilos de motos y muchos productos importantes para el cuido de las motos</p>
       </div>
       <div class="slide-sobre">
         <img src="https://www.galgo.com/wp-content/uploads/2023/03/primer-servicio-de-tu-moto.jpg" alt="">
@@ -167,7 +146,7 @@ footer { background:#000; color:#fff; text-align:center; padding:15px 20px; font
         <p>Ofrecemos mantenimiento completo...</p>
       </div>
       <div class="slide-sobre">
-        <img src="https://img.freepik.com/fotos-premium/accesorios-moto_1232-567.jpg" alt="">
+        <img src="https://sw-motech.us/api/images?source=https://media.sw-motech.us/products/images/sbl_07_904_10101_" alt="">
         <h3>Accesorios Premium</h3>
         <p>Contamos con cascos, guantes, luces LED...</p>
       </div>
@@ -206,7 +185,6 @@ footer { background:#000; color:#fff; text-align:center; padding:15px 20px; font
       </div>
     </div>
   </div>
-
   <a href="comentarios.html" class="boton-comentario">Enviar Comentario</a>
 </section>
 
@@ -229,38 +207,76 @@ footer { background:#000; color:#fff; text-align:center; padding:15px 20px; font
 // ===== CARRUSEL PRINCIPAL =====
 const slides = document.querySelectorAll('.slide');
 let currentSlide = 0;
-function mostrarSlide(index){ slides.forEach(s=>s.classList.remove('active')); slides[index].classList.add('active'); }
-document.querySelector('.prev').addEventListener('click', ()=>{ currentSlide=(currentSlide-1+slides.length)%slides.length; mostrarSlide(currentSlide); });
-document.querySelector('.next').addEventListener('click', ()=>{ currentSlide=(currentSlide+1)%slides.length; mostrarSlide(currentSlide); });
+function mostrarSlide(index){
+  slides.forEach(s=>s.classList.remove('active'));
+  slides[index].classList.add('active');
+}
+document.querySelector('.prev').addEventListener('click', ()=>{
+  currentSlide=(currentSlide-1+slides.length)%slides.length;
+  mostrarSlide(currentSlide);
+});
+document.querySelector('.next').addEventListener('click', ()=>{
+  currentSlide=(currentSlide+1)%slides.length;
+  mostrarSlide(currentSlide);
+});
 
 // ===== CARRUSEL SOBRE NOSOTROS =====
 const slidesSobre = document.querySelector('.slides-sobre');
 const slideSobreItems = document.querySelectorAll('.slide-sobre');
 let indexSobre = 0;
-function mostrarSobre(){ slidesSobre.style.transform=`translateX(-${indexSobre*100}%)`; }
-document.querySelector('.prev-sobre').addEventListener('click', ()=>{ indexSobre=(indexSobre-1+slideSobreItems.length)%slideSobreItems.length; mostrarSobre(); });
-document.querySelector('.next-sobre').addEventListener('click', ()=>{ indexSobre=(indexSobre+1)%slideSobreItems.length; mostrarSobre(); });
+function mostrarSobre(){
+  slidesSobre.style.transform=`translateX(-${indexSobre*100}%)`;
+}
+document.querySelector('.prev-sobre').addEventListener('click', ()=>{
+  indexSobre=(indexSobre-1+slideSobreItems.length)%slideSobreItems.length;
+  mostrarSobre();
+});
+document.querySelector('.next-sobre').addEventListener('click', ()=>{
+  indexSobre=(indexSobre+1)%slideSobreItems.length;
+  mostrarSobre();
+});
 
 // ===== BUSCADOR =====
-function buscar(){ const input=document.getElementById('inputBusqueda').value.toLowerCase(); alert(`Buscando: ${input}`); }
+function buscar(){
+  const input=document.getElementById('inputBusqueda').value.toLowerCase();
+  alert(`Buscando: ${input}`);
+}
 
 // ===== SESIÓN =====
 const btnSesion = document.getElementById("btnSesion");
-function obtenerSesion(){ const sesion=JSON.parse(localStorage.getItem("sesionActiva")); return sesion&&sesion.email?sesion:null; }
-function actualizarSesion(){ const sesion=obtenerSesion(); if(sesion){ btnSesion.textContent="Cerrar Sesión"; btnSesion.href="#"; } else { btnSesion.textContent="Iniciar Sesión"; btnSesion.href="login.html"; } }
+function obtenerSesion(){ 
+  const sesion=JSON.parse(localStorage.getItem("sesionActiva")); 
+  return sesion&&sesion.email?sesion:null; 
+}
+function actualizarSesion(){ 
+  const sesion=obtenerSesion(); 
+  if(sesion){ 
+    btnSesion.textContent="Cerrar Sesión"; 
+    btnSesion.href="#"; 
+  } else { 
+    btnSesion.textContent="Iniciar Sesión"; 
+    btnSesion.href="login.html"; 
+  } 
+}
 document.addEventListener("DOMContentLoaded", actualizarSesion);
-btnSesion.addEventListener("click",(e)=>{ if(obtenerSesion()){ e.preventDefault(); localStorage.removeItem("sesionActiva"); actualizarSesion(); alert("Has cerrado sesión"); }} );
+btnSesion.addEventListener("click",(e)=>{
+  if(obtenerSesion()){
+    e.preventDefault();
+    localStorage.removeItem("sesionActiva");
+    actualizarSesion();
+    alert("Has cerrado sesión");
+  }
+});
 
 // ===== CARRITO CON CANTIDADES =====
 function agregarAlCarrito(producto){
   const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
   const index = carrito.findIndex(item=>item.id===producto.id);
-  if(index!==-1){ carrito[index].cantidad += producto.cantidad; } 
+  if(index!==-1){ carrito[index].cantidad += producto.cantidad; }
   else { carrito.push(producto); }
   localStorage.setItem("carrito", JSON.stringify(carrito));
   actualizarContadorCarrito();
 }
-
 function actualizarContadorCarrito(){
   const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
   const total = carrito.reduce((acc, item)=> acc + item.cantidad, 0);
@@ -271,16 +287,15 @@ document.addEventListener("DOMContentLoaded", actualizarContadorCarrito);
 // Ejemplo de cómo agregar productos (botones o links en catálogo)
 document.querySelectorAll(".verCatalogoBtn").forEach(btn=>{
   btn.addEventListener("click",(e)=>{
-    if(!obtenerSesion()){ alert("Debes iniciar sesión para ver el catálogo."); } 
-    else { 
-      // Simulación: agregamos un producto de ejemplo al carrito
+    if(!obtenerSesion()){
+      alert("Debes iniciar sesión para ver el catálogo.");
+    } else {
       agregarAlCarrito({id:1, nombre:"Moto Deportiva", precio:1200, cantidad:1});
       window.location.href="catalogo.html";
     }
   });
 });
 </script>
-
 </body>
 </html>
 
