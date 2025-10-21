@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carrito de Compras</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    #carrito-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 15px;
+      margin-top: 20px;
+    }
+    .producto {
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .producto img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    .producto h3 {
+      margin: 10px 0 5px;
+      color: #333;
+    }
+    .producto p {
+      color: #777;
+      margin: 0;
+    }
+    .botones {
+      margin-top: 20px;
+      text-align: center;
+    }
+    .botones button {
+      padding: 10px 20px;
+      margin: 5px;
+      border: none;
+      border-radius: 6px;
+      background-color: red;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .botones button:hover {
+      background-color: red;
+    }
+    #total {
+      font-size: 1.3em;
+      text-align: center;
+      margin-top: 20px;
+      color: #222;
+      font-weight: bold;
+    }
+    #pago {
+      display: none;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      width: 300px;
+      margin: 30px auto;
+      text-align: center;
+    }
+    #pago input {
+      width: 90%;
+      padding: 8px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    #pago button {
+      width: 100%;
+      background: #28a745;
+    }
+    #pago button:hover {
+      background: #1e7e34;
+    }
+  </style>
+</head>
+<body>
+  <h1>🛒 Tu Carrito</h1>
+
+  <div id="carrito-container"></div>
+
+  <p id="total"></p>
+
+  <div class="botones">
+    <button id="vaciar">Vaciar carrito</button>
+    <button onclick="window.location.href='catalogo.html'">Volver al catálogo</button>
+    <button id="pagar">Proceder al pago 💳</button>
+  </div>
+
+  <div id="pago">
+    <h2>Formulario de Pago</h2>
+    <input type="text" placeholder="Nombre en la tarjeta" id="nombre">
+    <input type="text" placeholder="Número de tarjeta" id="tarjeta" maxlength="16">
+    <input type="text" placeholder="Fecha de expiración (MM/AA)" id="fecha" maxlength="5">
+    <input type="text" placeholder="CVV" id="cvv" maxlength="3">
+    <button id="confirmarPago">Confirmar pago</button>
+  </div>
+
+  <script>
+    const contenedor = document.getElementById('carrito-container');
+    const totalTexto = document.getElementById('total');
+    const pago = document.getElementById('pago');
+    const botonPagar = document.getElementById('pagar');
+    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+    function mostrarCarrito() {
+      contenedor.innerHTML = '';
+      let total = 0;
+
+      if (carrito.length === 0) {
+        contenedor.innerHTML = '<p style="text-align:center;">Tu carrito está vacío 🛍️</p>';
+        totalTexto.textContent = '';
+        botonPagar.style.display = "none";
+        return;
+      }
+
+      carrito.forEach((p, i) => {
+        total += p.precio * p.cantidad;
+        const div = document.createElement('div');
+        div.classList.add('producto');
+        div.innerHTML = `
+          <img src="${p.imagen}" alt="${p.nombre}">
+          <h3>${p.nombre}</h3>
+          <p>Precio: ₡${p.precio}</p>
+          <p>Cantidad: ${p.cantidad}</p>
+          <button onclick="eliminarProducto(${i})">Eliminar</button>
+        `;
+        contenedor.appendChild(div);
+      });
+
+      totalTexto.textContent = `Total a pagar: ₡${total.toLocaleString()}`;
+      botonPagar.style.display = "inline-block";
+    }
+
+    function eliminarProducto(index) {
+      carrito.splice(index, 1);
+      localStorage.setItem('carrito', JSON.stringify(carrito));
+      mostrarCarrito();
+    }
+
+    document.getElementById('vaciar').addEventListener('click', () => {
+      localStorage.removeItem('carrito');
+      carrito = [];
+      mostrarCarrito();
+    });
+
+    botonPagar.addEventListener('click', () => {
+      pago.style.display = "block";
+      window.scrollTo({ top: pago.offsetTop, behavior: 'smooth' });
+    });
+
+    document.getElementById('confirmarPago').addEventListener('click', () => {
+      const nombre = document.getElementById('nombre').value.trim();
+      const tarjeta = document.getElementById('tarjeta').value.trim();
+      const fecha = document.getElementById('fecha').value.trim();
+      const cvv = document.getElementById('cvv').value.trim();
+
+      if (!nombre || !tarjeta || !fecha || !cvv) {
+        alert("⚠️ Por favor completa todos los campos.");
+        return;
+      }
+
+      alert(`✅ Pago realizado con éxito. ¡Gracias por tu compra, ${nombre}!`);
+      localStorage.removeItem('carrito');
+      carrito = [];
+      mostrarCarrito();
+      pago.style.display = "none";
+    });
+
+    mostrarCarrito();
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  

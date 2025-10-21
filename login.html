@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Iniciar Sesión - Moto-Cell</title>
+  <style>
+    * { box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+    body {
+      background: radial-gradient(circle at top left, #c40000, #1a1a1a);
+      height: 100vh; margin:0;
+      display:flex; justify-content:center; align-items:center;
+    }
+    .login-box {
+      background:#fff; width:90%; max-width:420px;
+      padding:50px 40px; border-radius:20px;
+      box-shadow:0 10px 40px rgba(0,0,0,0.5);
+      text-align:center; position:relative;
+      animation:fadeIn 0.8s ease-out;
+    }
+    @keyframes fadeIn { from { transform:translateY(-50px); opacity:0; } to { transform:translateY(0); opacity:1; } }
+    .close-btn { position:absolute; top:12px; right:18px; font-size:24px; color:#c40000; font-weight:bold; cursor:pointer; transition:transform 0.2s; }
+    .close-btn:hover { transform:scale(1.3); }
+    h2 { color:#c40000; font-size:30px; font-weight:700; margin-bottom:25px; }
+    input { width:100%; padding:13px; margin:12px 0; border:1px solid #ccc; border-radius:10px; font-size:15px; transition: all 0.3s ease; }
+    input:focus { border-color:#c40000; box-shadow:0 0 8px rgba(196,0,0,0.4); outline:none; }
+    button { width:100%; padding:14px; background:#c40000; color:white; border:none; border-radius:10px; font-size:16px; font-weight:bold; cursor:pointer; margin-top:15px; transition: all 0.3s ease; }
+    button:hover { background:#a10000; transform:scale(1.04); }
+    #mensaje { margin-top:15px; font-weight:500; min-height:22px; }
+    .registro-link { color:#c40000; font-weight:600; text-decoration:none; }
+    .registro-link:hover { text-decoration:underline; }
+    .link-cambiar { color:#c40000; cursor:pointer; text-decoration:underline; font-size:0.9em; }
+    #cambiar-contra { display:none; margin-top:25px; text-align:left; border-top:1px solid #ddd; padding-top:15px; animation:slideIn 0.5s ease; }
+    @keyframes slideIn { from {opacity:0; transform:translateY(-10px);} to {opacity:1; transform:translateY(0);} }
+    #cambiar-contra h3 { color:#c40000; font-size:18px; margin-bottom:12px; text-align:center; }
+    @media(max-width:480px){ .login-box{ padding:35px 25px; } h2{ font-size:25px; } }
+  </style>
+</head>
+<body>
+
+  <div class="login-box">
+    <span class="close-btn" id="closeLogin">&times;</span>
+    <h2>Iniciar Sesión</h2>
+
+    <form id="form-login">
+      <input type="email" id="email" placeholder="Correo electrónico" required>
+      <input type="password" id="password" placeholder="Contraseña" required>
+      <button type="submit">Ingresar</button>
+    </form>
+
+    <div id="mensaje"></div>
+
+    <p style="margin-top:20px; font-size:0.9em;">
+      ¿No tienes cuenta?
+      <a href="registroDecatalogo.html" class="registro-link">Regístrate aquí</a>
+    </p>
+
+    <p style="margin-top:10px;">
+      <span class="link-cambiar" id="mostrarCambio">¿Olvidaste o quieres cambiar tu contraseña?</span>
+    </p>
+
+    <div id="cambiar-contra">
+      <h3>Cambiar Contraseña</h3>
+      <input type="email" id="emailCambio" placeholder="Tu correo registrado" required>
+      <input type="password" id="nuevaContra" placeholder="Nueva contraseña" required>
+      <button id="guardarCambio">Actualizar Contraseña</button>
+      <p id="mensajeCambio" style="font-size:0.9em; margin-top:10px;"></p>
+    </div>
+  </div>
+
+  <script>
+    const closeBtn = document.getElementById("closeLogin");
+    const form = document.getElementById("form-login");
+    const mensaje = document.getElementById("mensaje");
+    const mostrarCambio = document.getElementById("mostrarCambio");
+    const cambiarContra = document.getElementById("cambiar-contra");
+    const guardarCambio = document.getElementById("guardarCambio");
+    const mensajeCambio = document.getElementById("mensajeCambio");
+
+    // 🔹 Cerrar ventana
+    closeBtn.addEventListener("click", () => window.location.href = "index.html");
+
+    // 🔹 Mostrar / ocultar cambio de contraseña
+    mostrarCambio.addEventListener("click", () => {
+      cambiarContra.style.display = cambiarContra.style.display === "block" ? "none" : "block";
+    });
+
+    // 🔹 Iniciar sesión
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const usuario = JSON.parse(localStorage.getItem("usuario"));
+
+      if(usuario && email === usuario.correo && password === usuario.cedula){
+        localStorage.setItem("sesionActiva", JSON.stringify({ nombre: usuario.nombre, email: usuario.correo }));
+        mensaje.innerHTML = "<p style='color:green'>✅ Inicio de sesión exitoso. Redirigiendo...</p>";
+        setTimeout(() => window.location.href = "index.html", 1500);
+      } else {
+        mensaje.innerHTML = "<p style='color:red'>❌ Usuario o contraseña incorrectos.</p>";
+      }
+    });
+
+    // 🔹 Cambiar contraseña
+    guardarCambio.addEventListener("click", (e) => {
+      e.preventDefault();
+      const emailCambio = document.getElementById("emailCambio").value.trim();
+      const nuevaContra = document.getElementById("nuevaContra").value.trim();
+      const usuario = JSON.parse(localStorage.getItem("usuario"));
+
+      if(!usuario){
+        mensajeCambio.innerHTML = "<span style='color:red;'>❌ No hay usuarios registrados.</span>";
+        return;
+      }
+
+      if(emailCambio === usuario.correo){
+        usuario.cedula = nuevaContra;
+        localStorage.setItem("usuario", JSON.stringify(usuario));
+        mensajeCambio.innerHTML = "<span style='color:green;'>✅ Contraseña actualizada correctamente.</span>";
+      } else {
+        mensajeCambio.innerHTML = "<span style='color:red;'>❌ El correo no coincide con ningún usuario.</span>";
+      }
+    });
+  </script>
+</body>
+</html>

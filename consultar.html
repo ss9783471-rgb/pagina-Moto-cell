@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Consultar Servicio - Moto-Cell</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+ 
+    body {
+      background: linear-gradient(135deg, #2b0000, #660000, #5a1212);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+ 
+    .contenedor {
+      background: rgba(201, 175, 175, 0.1);
+      padding: 40px;
+      border-radius: 15px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+      width: 90%;
+      max-width: 420px;
+      text-align: center;
+      animation: aparecer 0.6s ease;
+    }
+ 
+    @keyframes aparecer {
+      from {opacity: 0; transform: scale(0.8);}
+      to {opacity: 1; transform: scale(1);}
+    }
+ 
+    h2 {
+      margin-bottom: 20px;
+      font-size: 1.8rem;
+      color: #ffcccc;
+    }
+ 
+    .formulario {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+ 
+    input, select, textarea {
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      font-size: 1rem;
+      color: #333;
+    }
+ 
+    textarea {
+      resize: none;
+      height: 80px;
+    }
+ 
+    button {
+      background: #ff0000;
+      color: #fff;
+      border: none;
+      padding: 10px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+ 
+    button:hover {
+      background: #5a5959;
+      transform: scale(1.05);
+    }
+ 
+    p {
+      font-size: 0.9rem;
+      margin-top: 15px;
+      color: #eee;
+    }
+ 
+    a {
+      color: #ffcccc;
+      text-decoration: none;
+      font-weight: 600;
+    }
+ 
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="contenedor">
+    <h2>Registro de Acceso</h2>
+    <form class="formulario" id="formConsulta">
+      <input type="text" id="nombre" placeholder="Nombre completo" required>
+      <input type="email" id="correo" placeholder="Correo electrónico" required>
+      <select id="servicio" required>
+        <option value="">Seleccione el tipo de servicio</option>
+        <option value="Mantenimiento General">Mantenimiento General</option>
+        <option value="Cambio de Neumáticos">Cambio de Neumáticos</option>
+        <option value="Ajuste de Frenos">Ajuste de Frenos</option>
+        <option value="Revisión Eléctrica">Revisión Eléctrica</option>
+      </select>
+      <textarea id="observaciones" placeholder="Observaciones (opcional)"></textarea>
+      <button type="submit">Consultar Servicio</button>
+    </form>
+    <p><a href="index.html">Volver al inicio</a></p>
+  </div>
+ 
+  <script>
+    const form = document.getElementById("formConsulta");
+ 
+    form.addEventListener("submit", e => {
+      e.preventDefault();
+ 
+      const nombre = document.getElementById("nombre").value.trim();
+      const correo = document.getElementById("correo").value.trim();
+      const servicio = document.getElementById("servicio").value;
+ 
+      if (nombre && correo && servicio) {
+        alert(`✅ Consulta registrada:\n\nNombre: ${nombre}\nCorreo: ${correo}\nServicio: ${servicio}\n\nGracias por consultar con Moto-Cell.`);
+        form.reset();
+      } else {
+        alert("⚠️ Por favor complete todos los campos obligatorios.");
+      }
+    });
+  </script>
+</body>
+</html>
+ 
+
+
+
+
+
+

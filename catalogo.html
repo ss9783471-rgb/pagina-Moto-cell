@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Catálogo - Moto-Cell</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --rojo: #c40000;
+      --rojo-claro: #ff1e1e;
+      --gris-osc: #2f2f2f;
+      --bg: #f5f5f5;
+    }
+
+    * { box-sizing: border-box; margin:0; padding:0; }
+    body {
+      font-family: "Poppins", system-ui, Arial;
+      background: var(--bg);
+      color: #222;
+    }
+
+    /* ====== HERO MÁS PEQUEÑO ====== */
+    .hero-header {
+      position: relative;
+      height: 55vh; /* <-- altura reducida */
+      background: url('https://p4.wallpaperbetter.com/wallpaper/322/1022/388/ducati-vehicles-motorbikes-black-background-1920x1200-motorcycles-ducati-hd-art-wallpaper-preview.jpg') center center / cover no-repeat;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      color: white;
+    }
+
+    .hero-header::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 0;
+    }
+
+    /* ====== BARRA SUPERIOR ====== */
+    .topbar {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+      backdrop-filter: blur(6px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand h1 {
+      font-size: 1.8rem;
+      color: #fff;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+    }
+
+    nav {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      background: var(--rojo);
+      transform: scale(1.05);
+    }
+
+    .buscador {
+      display: flex;
+      align-items: center;
+      background: #fff;
+      padding: 5px 8px;
+      border-radius: 8px;
+    }
+
+    .buscador input {
+      border: none;
+      outline: none;
+      padding: 8px;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      width: 180px;
+    }
+
+    .buscador button {
+      background: var(--rojo);
+      border: none;
+      color: #fff;
+      font-weight: 600;
+      border-radius: 6px;
+      padding: 8px 12px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .buscador button:hover { background: var(--rojo-claro); }
+
+    /* ====== CONTENIDO HERO ====== */
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding-bottom: 40px; /* menos espacio */
+    }
+
+    .hero-content h2 {
+      font-size: 2rem;
+      color: #fff;
+      text-shadow: 0 0 12px rgba(0, 0, 0, 0.6);
+      margin-bottom: 8px;
+    }
+
+    .hero-content p {
+      font-size: 1.1rem;
+      color: #f0f0f0;
+      margin-bottom: 20px;
+    }
+
+    .cta {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .cta a {
+      background: #444;
+      color: #fff;
+      text-decoration: none;
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-weight: 600;
+      transition: 0.3s;
+      box-shadow: 0 4px 10px rgba(172, 157, 157, 0.4);
+    }
+
+    .cta a.secondary {
+      background: #444;
+    }
+
+    .cta a:hover {
+      transform: scale(1.07);
+      opacity: 0.9;
+    }
+
+    /* ====== SECCIONES DE CATÁLOGO ====== */
+    main { max-width:1200px; margin:40px auto; padding:0 18px 80px; }
+    section { margin-bottom:50px; }
+    section h3 { text-align:center; color:var(--rojo); text-transform:uppercase; margin-bottom:20px; }
+
+    .grid {
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap:20px;
+    }
+
+    .card {
+      background:#fff; border-radius:14px; overflow:hidden;
+      box-shadow:0 6px 18px rgba(0,0,0,0.1);
+      display:flex; flex-direction:column; transition:0.3s;
+    }
+
+    .card:hover { transform: translateY(-6px); box-shadow:0 15px 30px rgba(0,0,0,0.2); }
+
+    .card img {
+      width:100%;
+      max-height:200px;
+      object-fit:contain;
+      background:#f8f8f8;
+    }
+
+    .card .body {
+      padding:12px;
+      flex:1;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+
+    .card h4 { text-align:center; margin-bottom:4px; font-size:1.1rem; }
+    .card .desc { font-size:0.9rem; color:#555; text-align:center; }
+    .card .price { text-align:center; color:var(--rojo); font-weight:700; margin-top:auto; }
+
+    .actions { display:flex; justify-content:center; gap:8px; margin-top:10px; }
+    .btn {
+      background:var(--rojo);
+      color:#fff;
+      padding:10px 16px;
+      border-radius:10px;
+      text-decoration:none;
+      font-weight:600;
+      transition:0.2s;
+    }
+
+    .btn:hover { background:var(--rojo-claro); }
+
+    footer {
+      text-align:center;
+      padding:20px;
+      color:#666;
+      font-size:0.9rem;
+      background:#f0f0f0;
+    }
+
+    #mensajeCarrito {
+      position:fixed; bottom:20px; right:20px;
+      background: var(--rojo);
+      color:#fff;
+      padding:10px 16px;
+      border-radius:8px;
+      display:none;
+      box-shadow:0 4px 10px rgba(0,0,0,0.3);
+      font-weight:600;
+    }
+  </style>
+</head>
+<body>
+  <!-- HERO MÁS CORTO -->
+  <section class="hero-header">
+    <div class="topbar">
+      <div class="brand">
+        <img src="./moto.png" alt="Moto-Cell" style="height:45px;border-radius:8px;">
+        <h1>Moto-Cell</h1>
+      </div>
+      <nav>
+        <a href="./index.html">Inicio</a>
+        <a href="#motos">Motos</a>
+        <a href="#accesorios">Repuestos</a>
+        <a href="carrito.html">🛒 Carrito</a>
+      </nav>
+      <form class="buscador" id="buscador">
+        <input type="text" id="input-buscar" placeholder="Buscar producto..." />
+        <button type="submit">Buscar</button>
+      </form>
+    </div>
+
+    <div class="hero-content">
+      <h2>Catálogo Moto-Cell — Potencia, Estilo y Calidad</h2>
+      <p>Encuentra las mejores motos, repuestos y accesorios en un solo lugar.</p>
+      <div class="cta">
+        <a href="#motos">Ver Motos</a>
+        <a href="#accesorios" class="secondary">Ver Repuestos</a>
+        <a href="registroDeCatalogo.html" class="secondary">Registro</a>
+      </div>
+    </div>
+  </section>
+
+  <div id="mensajeCarrito">Producto agregado al carrito ✅</div>
+
+  <main>
+    <!-- SECCIÓN MOTOS -->
+    <!-- SECCIÓN: MOTOS (20) -->
+    <section id="motos" aria-labelledby="motos-title">
+      <h3 id="motos-title">Motos Disponibles</h3>
+      <div class="grid" id="grid-motos">
+        <!-- 20 tarjetas de motos (puedes reemplazar src por tus fotos) -->
+        <!-- 1 -->
+        <div class="card" data-category="moto" data-name="Moto Power Plus" data-price="2000000">
+          <img class="thumb" src="https://cdn1.polaris.com/globalassets/indian/2025/2025/model/vehicle-cards/wholegoods/chieftain-powerplus/indian-my25-7g1y-chieftain-power-plus-dh-112-rider-audio-black-n25lfdssa3.png?v=d2672617&format=webp&width=350" >
+          <div class="body">
+            <h4>Moto Power Plus</h4>
+            <p class="desc">Motor 650cc • ABS • Audio integrado</p>
+            <div class="price">₡2,000,000</div>
+            <div class="actions">
+              <a class="btn" href="registroDeCatalogo.html?producto=Moto%20Power%20Plus&precio=2000000">Comprar</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2 -->
+        <div class="card" data-category="moto" data-name="Yamaha FZ-S 150" data-price="1100000">
+          <img class="thumb" src="https://cdn1.polaris.com/globalassets/indian/2025/2025/model/vehicle-cards/ind-my25-9ts66-sport-scout-sixty-black-metallic-n25ssb61aa.png?v=cc85d3c5&format=webp&width=250&height=150" alt="Yamaha FZ-S 150">
+          <div class="body">
+            <h4>Yamaha FZ-S 150</h4>
+            <p class="desc">150cc • Económica y ágil</p>
+            <div class="price">₡1,100,000</div>
+            <div class="actions">
+              <a class="btn" href=registroDeCatalogo.html?producto=Sport%20Scout%20Sixty&precio=1350000>Comprar</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3 -->
+        <div class="card" data-category="moto" data-name="Moto FZ-S 150" data-price="1500000">
+          <img class="thumb" src="https://cdn1.polaris.com/globalassets/indian/2025/2025/model/vehicle-cards/wholegoods/chieftain-powerplus/indian-my25-7g1y-chieftain-power-plus-dh-112-rider-audio-black-n25lfdssa3.png?v=d2672617&format=webp&width=350" alt="Moto FZ-S 150">
+          <div class="body">
+            <h4>Moto FZ-S 150</h4>
+            <p class="desc">Versión estándar • Confort diario</p>
+            <div class="price">₡1,500,000</div>
+            <div class="actions">
+              <a class="btn" href="registroDeCatalogo.html?producto=Moto%20FZ-S%20150&precio=1100000">Comprar</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4 -->
+        <div class="card" data-category="moto" data-name="Moto Ultra" data-price="1200000">
+          <img class="thumb" src="https://cdn1.polaris.com/globalassets/indian/2024/model/family-pages/chief/03-lineup/indian-my24-6e3d-family-lineup-chief.png?v=bd614ae0&format=webp">
+          <div class="body">
+            <h4>Moto Ultra</h4>
+            <p class="desc">Diseño urbano • Cómoda y potente</p>
+            <div class="price">₡1,200,000</div>
+            <div class="actions">
+              <a class="btn" href="registroDeCatalogo.html?producto=Moto%20Ultra&precio=1200000">Comprar</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5 -->
+        <div class="card" data-category="moto" data-name="Sport Scout Sixty" data-price="1350000">
+          <img class="thumb" src="https://cdn1.polaris.com/globalassets/indian/2025/category-pages/cruisers/04-lineup/indian-my25-464a-family-cruisers--lineup-scout.png?v=c52e9b8b&format=webp" alt="Sport Scout Sixty">
+          <div class="body">
+            <h4>Sport Scout Sixty</h4>
+            <p class="desc">Estilo retro • Excelente torque</p>
+            <div class="price">₡1,350,000</div>
+            <div class="actions">
+              <a class="btn" href="registroDeCatalogo.html?producto=Sport%20Scout%20Sixty&precio=1350000">Comprar</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6 -->
+        <div class="card" data-category="moto" data-name="Scout Maroon" data-price="1250000">
+          <img class="thumb" src="https://cdn1.polaris.com/globalassets/indian/2025/2025/model/vehicle-cards/ind-my25-9ts58-sport-chief-rt-heavy-metal-n25dtdbhav.png?v=cd277fef" alt="Scout Maroon">
+          <div class="body">
+            <h4>Scout Maroon</h4>
+            <p class="desc">Clásica • Confort y estilo</p>
+            <div class="price">₡1,250,000</div>
+            <div class="actions">
+              <a class="btn" href="registroDeCatalogo.html?producto=Scout%20Maroon&precio=1250000">Comprar</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 7 -->
+        <div class="card" data-category="moto" data-name="Sunset Red Scout" data-price="1400000">
+          <img class="thumb" src="https://cdn1.polaris.com/globalassets/indian/2025/2025/model/vehicle-cards/ind-my25-9ts69-sport-scout-sixty-limited-sunset-red-smoke-n25ssc61ae.png?v=cc85d3cf" alt="Sunset Red Scout">
+          <div class="body">
+            <h4>Sunset Red Scout</h4>
+            <p class="desc">Edición especial • Acabado premium</p>
+            <div class="price">₡1,400,000</div>
+            <div class="actions">
+              <a class="btn" href="registroDeCatalogo.html?producto=Sunset%20Red%20Scout&precio=1400000">Comprar</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 8 -->
+        <div class="card" data-category="moto" data-name="Moto K11" data-price="2000000">
+          <img class="thumb" src="https://cdn1.polaris.com/globalassets/indian/2025/2025/model/vehicle-cards/wholegoods/chieftain-powerplus/indian-my25-7g1y-chieftain-power-plus-dh-112-rider-audio-red-n25lfdssab.png?v=d26725c1" alt="Moto K11">
+          <div class="body">
+            <h4>Moto K11</h4>
+            <p class="desc">Modelo compacto • Ideal ciudad</p>
+            <div class="price">₡2,000,000</div>
+            <div class="actions">
+              <a class="btn" href="registroDeCatalogo.html?producto=Moto%20K11&precio=25500">Comprar</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 9 -->
+        <div class="card" data-category="moto" data-name="Moto R3" data-price="25000">
+          <img class="thumb" src="https://cdn1.polaris.com/globalassets/indian/2025/2025/model/vehicle-cards/wholegoods/challenger/indian-my25-7g1y-challenger-dark-horse-springfield-blue-n25lcdrraa.png?v=d234a83a" alt="Moto R3">
+          <div class="body">
+            <h4>Moto R3</h4>
+            <p class="desc">Performance • Estilo deportivo</p>
+            <div class="price">₡1,500,000</div>
+            <div class="actions">
+              <a class="btn" href="registroDeCatalogo.html?producto=Moto%20R3&precio=25000">Comprar</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 10 -->
+        <div class="card" data-category="moto" data-name="Moto R1" data-price="4200000">
+          <img class="thumb" src="https://cdn1.polaris.com/globalassets/indian/2025/2025/model/vehicle-cards/ind-my25-9ts44-chief-bobber-dark-horse-storm-gray-n25dldbhag.png?v=cc85d467" alt="Moto R1">
+          <div class="body">
+            <h4>Moto R1</h4>
+            <p class="desc">Superbike • Alto rendimiento</p>
+            <div class="price">₡4,200,000</div>
+            <div class="actions">
+              <a class="btn" href="registroDeCatalogo.html?producto=Moto%20R1&precio=5200000">Comprar</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 11 -->
+        <div class="card" data-category="moto" data-name="Kawasaki Ninja" data-price="4800000">
+          <img class="thumb" src="https://cdn1.polaris.com/globalassets/indian/2025/2025/model/vehicle-cards/ind-my25-9ts45-chief-bobber-dark-horse-maroon-metallic-n25dldbhae.png?v=cc85d467" alt="Kawasaki Ninja">
+          <div class="body">
+            <h4>Kawasaki Ninja</h4>
+            <p class="desc">Deporte • Icono de velocidad</p>
+            <div class="price">₡4,800,000</div>
+            <div class="actions">
+              <a class="btn" href="registroDeCatalogo.html?producto=Kawasaki%20Ninja&precio=4800000">Comprar</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 12 -->
+        <div class="card" data-category="moto" data-name="Honda CB500" data-price="1150000">
+          <img class="thumb" src="https://cdn1.polaris.com/globalassets/indian/2025/2025/model/vehicle-cards/ind-my25-9ts62-scout-bobber-sixty-limited-black-metallic-n25sbc61aa.png?v=cc85d3b2" alt="Honda CB500">
+          <div class="body">
+            <h4>Honda CB500</h4>
+            <p class="desc">Versátil, fiable</p>
+            <div class="price">₡1,150,000</div>
+            <div class="actions">
+              <a class="btn" href="registroDeCatalogo.html?producto=Honda%20CB500&precio=1150000">Comprar</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 13 -->
+        <div class="card" data-category="moto" data-name="Suzuki GSX" data-price="2100000">
+          <img class="thumb" src="https://cdn1.polaris.com/globalassets/indian/2025/2025-elite/model/vehicle-cards/indian-my25-b3fb-indian-pursuit-elite-black-forest-candy-n25ldessaj.png?v=d6224e79" alt="Suzuki GSX">
+          <div class="body">
+            <h4>Suzuki GSX</h4>
+            <p class="desc">Fuerza y tecnología</p>
+            <div class="price">₡2,100,000</div>
+            <div class="actions">
+              <a class="btn" href="registroDeCatalogo.html?producto=Suzuki%20GSX&precio=2100000">Comprar</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 14 -->
+        <div class="card" data-category="moto" data-name="Ducati Monster" data-price="3200000">
+          <img class="thumb" src="https://cdn1.polaris.com/globalassets/indian/2025/2025/model/vehicle-cards/ind-my25-9ts41-chief-bobber-black-metallic-n25dlbagaa.png?v=cc85d45e" alt="Ducati Monster">
+          <div class="body">
+            <h4>Ducati Monster</h4>
+            <p class="desc">Diseño italiano • Potencia</p>
+            <div class="price">₡3,200,000</div>
+            <div class="actions">
+              <a class="btn" href="registroDeCatalogo.html?producto=Ducati%20Monster&precio=3200000">Comprar</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 15 -->
+        <div class="card" data-category="moto" data-name="Triumph Street" data-price="2900000">
+          <img class="thumb" src="https://cdn1.polaris.com/globalassets/indian/2025/model/vehicle-cards/indian-my25-464a-wholegoods-scout-ghost-white-metallic-n25sse77a0.png?v=c44f913d" alt="Triumph Street">
+          <div class="body">
+            <h4>Triumph Street</h4>
+            <p class="desc">Combinación de confort y estilo</p>
+            <div class="price">₡2,900,000</div>
+            <div class="actions">
+              <a class="btn" href="registroDeCatalogo.html?producto=Triumph%20Street&precio=2900000">Comprar</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 16 -->
+        <div class="card" data-category="moto" data-name="BMW S1000" data-price="3000000">
+          <img class="thumb" src="https://cdn1.polaris.com/globalassets/indian/2025/2025/model/vehicle-cards/ind-my25-9ts69-sport-scout-sixty-limited-sunset-red-smoke-n25ssc61ae.png?v=cc85d3cf" alt="BMW S1000">
+          <div class="body">
+            <h4>BMW S1000</h4>
+            <p class="desc">Tecnología tope de gama</p>
+            <div class="price">₡3,000,000</div>
+            <div class="actions">
+              <a class="btn" href="registroDeCatalogo.html?producto=BMW%20S1000&precio=7000000">Comprar</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 17 -->
+        <div class="card" data-category="moto" data-name="KTM Duke" data-price="1850000">
+          <img class="thumb" src="https://cdn1.polaris.com/globalassets/indian/2025/2025-elite/model/vehicle-cards/indian-my25-b3fb-indian-challenger-elite-white-crystal-n25lcessae.png?v=d6224e79" alt="KTM Duke">
+          <div class="body">
+            <h4>KTM Duke</h4>
+            <p class="desc">Ligera y deportiva</p>
+            <div class="price">₡1,850,000</div>
+            <div class="actions">
+              <a class="btn" href="registroDeCatalogo.html?producto=KTM%20Duke&precio=1850000">Comprar</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 18 -->
+        <div class="card" data-cathttps:="moto" data-name="Royal Enfield 350" data-price="980000">
+          <img class="thumb" src="https://cdn1.polaris.com/globalassets/indian/2025/2025/model/vehicle-cards/ind-my25-9ts58-sport-chief-rt-heavy-metal-n25dtdbhav.png?v=cd277fef" alt="Royal Enfield 350">
+          <div class="body">
+            <h4>Royal Enfield 350</h4>
+            <p class="desc">Clásica robusta</p>
+            <div class="price">₡980,000</div>
+            <div class="actions">
+              <a class="btn" href="registroDeCatalogo.html?producto=Royal%20Enfield%20350&precio=980000">Comprar</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 19 -->
+        <div class="card" data-category="moto" data-name="Vespa LX" data-price="2000000">
+          <img class="thumb" src="https://cdn1.polaris.com/globalassets/indian/2024/model/vehicle-cards/indian-my24-6e3d-ftr-r-carbon-abs-carbon-fiber-n24rzr22ac.png?v=bca7e247" alt="Vespa LX">
+          <div class="body">
+            <h4>Vespa LX</h4>
+            <p class="desc">Estilo urbano clásico</p>
+            <div class="price">₡2,000,000</div>
+            <div class="actions">
+              <a class="btn" href="registroDeCatalogo.html?producto=Vespa%20LX&precio=650000">Comprar</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 20 -->
+        <div class="card" data-category="moto" data-name="Cruiser Classic" data-price="1400000">
+          <img class="thumb" src="https://cdn1.polaris.com/globalassets/indian/2025/2025/model/vehicle-cards/wholegoods/chieftain-powerplus/indian-my25-7g1y-chieftain-power-plus-ltd-red-metallic-n25lflrra4.png?v=d2672604" alt="Cruiser Classic">
+          <div class="body">
+            <h4>Cruiser Classic</h4>
+            <p class="desc">Confort para rutas largas</p>
+            <div class="price">₡1,400,000</div>
+            <div class="actions">
+              <a class="btn" href="registroDeCatalogo.html?producto=Cruiser%20Classic&precio=1400000">Comprar</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+     <!-- SECCIÓN: ACCESORIOS (20) -->
+   
+<main>
+  <section id="accesorios">
+    <h3 style="text-align:center; color:var(--rojo); margin-bottom:20px;">Repuestos y Accesorios</h3>
+    <div class="grid" id="grid-accesorios">
+
+      <!-- Productos -->
+      <div class="card" data-name="Casco Deportivo" data-price="35000">
+        <img src="https://cdn1.polaris.com/globalassets/pga/indian/shop/accessories/Other-Ways-to-Shop2/New/2889365.jpg?v=a140fb4f&format=webp&height=300" alt="Casco Deportivo">
+        <div class="body">
+          <h4>Casco Deportivo</h4>
+          <div class="price">₡35,000</div>
+          <div class="actions"><a class="btn">Agregar</a></div>
+        </div>
+      </div>
+      <!--2-->
+      <div class="card" data-name="Foco Mp3" data-price="28500">
+        <img src="https://cdn1.polaris.com/globalassets/pga/shop/2415/2415590-3di3.jpg?v=cf23f5ac&format=webp&height=300" alt="Foco Mp3">
+        <div class="body">
+          <h4>Foco Mp3</h4>
+          <div class="price">₡28,500</div>
+          <div class="actions"><a class="btn">Agregar</a></div>
+        </div>
+      </div>
+      <!--3-->
+      <div class="card" data-name="Motor electrico" data-price="35000">
+        <img src="https://cdn1.polaris.com/globalassets/pga/shop/2417/2417214-3di.jpg?v=c6d78a31&format=webp&height=300" alt="Motor electrico">
+        <div class="body">
+          <h4>Motor electrico</h4>
+          <div class="price">₡35,000</div>
+          <div class="actions"><a class="btn">Agregar</a></div>
+        </div>
+      </div>
+      <!--4-->
+      <div class="card" data-name="Kit de cambio de aceite" data-price="28500">
+        <img src="https://cdn1.polaris.com/globalassets/pga/shop/4017/2884171.jpg?v=da95714a&format=webp&height=300" alt="Kit de cambio de aceite">
+        <div class="body">
+          <h4>Kit de cambio de aceite</h4>
+          <div class="price">₡28,500</div>
+          <div class="actions"><a class="btn">Agregar</a></div>
+        </div>
+      </div>
+      <!--5-->
+      <div class="card" data-name="Luces led" data-price="25000">
+        <img src="https://cdn1.polaris.com/globalassets/pga/indian/shop/accessories/lighting/2889224.jpg?v=a14239e6&format=webp&height=300" alt="Luces led">
+        <div class="body">
+          <h4>Luces led</h4>
+          <div class="price">₡25,000</div>
+          <div class="actions"><a class="btn">Agregar</a></div>
+        </div>
+      </div>
+      <!--6-->
+      <div class="card" data-name="Palanca Power Plus 2.0" data-price="25000">
+        <img src="https://cdn1.polaris.com/globalassets/pga/accessories/2880103-463-1.jpeg?v=6140d4da&format=webp&height=300" alt="Palanca Power Plus 2.0">
+        <div class="body">
+          <h4>Palanca Power Plus 2.0</h4>
+          <div class="price">₡25,000</div>
+          <div class="actions"><a class="btn">Agregar</a></div>
+        </div>
+      </div>
+      <!--7-->
+      <div class="card" data-name="Kit de herramientas Moto-cell" data-price="25000">
+        <img src="https://cdn1.polaris.com/globalassets/indian/2880075.jpg?v=ac1a577c&format=webp&height=300" alt="Kit de herramientas Moto-cell">
+        <div class="body">
+          <h4>Kit de herramientas Moto-cell</h4>
+          <div class="price">₡25,000</div>
+          <div class="actions"><a class="btn">Agregar</a></div>
+        </div>
+      </div>
+      <!--8-->
+      <div class="card" data-name="Asiento Moto-cell" data-price="32000">
+        <img src="https://cdn1.polaris.com/globalassets/pga/accessories/2884903-vba.jpg?v=a4ef1464&format=webp&height=300" alt="Asiento Moto-cell">
+        <div class="body">
+          <h4>Asiento Moto-cell</h4>
+          <div class="price">₡32,000</div>
+          <div class="actions"><a class="btn">Agregar</a></div>
+        </div>
+      </div>
+      <!--9-->
+      <div class="card" data-name="Kit Ultra" data-price="18000">
+        <img src="https://cdn1.polaris.com/globalassets/pga/indian/shop/accessories/lighting/2889476-266.jpg?v=a13e8c5e&format=webp&height=300" alt="Kit Ultra">
+        <div class="body">
+          <h4>Kit Ultra</h4>
+          <div class="price">₡18,000</div>
+          <div class="actions"><a class="btn">Agregar</a></div>
+        </div>
+      </div>
+      <!--10-->
+      <div class="card" data-name="Llanta cell" data-price="15000">
+        <img src="https://cdn1.polaris.com/globalassets/pga/accessories/atv/maintenance/tires-9.1/5416299.jpg?v=a47b63a0&format=webp&height=300" alt="Llanta cell">
+        <div class="body">
+          <h4>Llanta cell</h4>
+          <div class="price">₡15,000</div>
+          <div class="actions"><a class="btn">Agregar</a></div>
+        </div>
+      </div>
+      <!--11-->
+      <div class="card" data-name="Aceite ultra cell" data-price="12000">
+        <img src="https://cdn1.polaris.com/globalassets/pga/maintenance/lubricants/4-cycle-oils/indian-full-synthetic-motor-oil.jpg?v=48e6ed2c&format=webp&height=300" alt="Aceite ultra cell">
+        <div class="body">
+          <h4>Aceite ultra cell</h4>
+          <div class="price">₡12,000</div>
+          <div class="actions"><a class="btn">Agregar</a></div>
+        </div>
+      </div>
+      <!--12-->
+      <div class="card" data-name="Palanca de soporte" data-price="22000">
+        <img src="https://cdn1.polaris.com/globalassets/pga/shop/1327/1327326-3di.jpg?v=b89ce79a&format=webp&height=300" alt="Palanca de soporte">
+        <div class="body">
+          <h4>Palanca de soporte</h4>
+          <div class="price">₡22,000</div>
+          <div class="actions"><a class="btn">Agregar</a></div>
+        </div>
+      </div>
+      <!--13-->
+      <div class="card" data-name="Rodamiento de llantas" data-price="11000">
+        <img src="https://cdn1.polaris.com/globalassets/pga/shop/3514/3514405.jpg?v=a31d198e&format=webp&height=300" alt="Rodamiento de llantas">
+        <div class="body">
+          <h4>Rodamiento de llantas</h4>
+          <div class="price">₡11,000</div>
+          <div class="actions"><a class="btn">Agregar</a></div>
+        </div>
+      </div>
+      <!--14-->
+      <div class="card" data-name="Luz LED" data-price="9000">
+        <img src="https://cdn1.polaris.com/globalassets/pga/maintenance/lubricants/2884172_front_1500x1500.png?v=a2db8749&format=webp&height=300" alt="Luz LED">
+        <div class="body">
+          <h4>Lubricante</h4>
+          <div class="price">₡9,000</div>
+          <div class="actions"><a class="btn">Agregar</a></div>
+        </div>
+      </div> 
+      <!--15-->
+      <div class="card" data-name="Batería Power" data-price="20000">
+        <img src="https://cdn1.polaris.com/globalassets/pga/accessory/2883268-g.jpg?v=78d4c8be&format=webp&height=300" alt="puños">
+        <div class="body">
+          <h4>Puños</h4>
+          <div class="price">₡20,000</div>
+          <div class="actions"><a class="btn">Agregar</a></div>
+        </div>
+      </div>
+      <!--16-->
+      <div class="card" data-name="Espejos Radiales" data-price="25000">
+        <img src="https://cdn1.polaris.com/globalassets/pga/accessories/2883771-12.jpg?v=a9d49545&format=webp&height=300" alt="Espejos Radiales">
+        <div class="body">
+          <h4>Espejo Retro</h4>
+          <div class="price">₡25,000</div>
+          <div class="actions"><a class="btn">Agregar</a></div>
+        </div>
+      </div>
+      <!--17-->
+      <div class="card" data-name="Soporte Móvil" data-price="6500">
+        <img src="" alt="Soporte Móvil">
+        <div class="body">
+          <h4>Soporte Móvil</h4>
+          <div class="price">₡6,500</div>
+          <div class="actions"><a class="btn">Agregar</a></div>
+        </div>
+      </div>
+      <!--18-->
+      <div class="card" data-name="Maleta Lateral" data-price="75000">
+        <img src="img/producto14.jpg" alt="Maleta Lateral">
+        <div class="body">
+          <h4>Maleta Lateral</h4>
+          <div class="price">₡75,000</div>
+          <div class="actions"><a class="btn">Agregar</a></div>
+        </div>
+      </div>
+      <!--19-->
+      <div class="card" data-name="Guantes Racing" data-price="22000">
+        <img src="img/producto15.jpg" alt="Guantes Racing">
+        <div class="body">
+          <h4>Guantes Racing</h4>
+          <div class="price">₡22,000</div>
+          <div class="actions"><a class="btn">Agregar</a></div>
+
+        </div>
+      </div>
+      <!--20-->
+      <div class="card" data-name="Kit Herramientas" data-price="28000">
+        <img src="img/producto16.jpg" alt="Kit Herramientas">
+        <div class="body">
+          <h4>Kit Herramientas</h4>
+          <div class="price">₡28,000</div>
+          <div class="actions"><a class="btn">Agregar</a></div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+
+  <footer>
+    &copy; 2025 Moto-Cell — creador Sebastián Salazar
+  </footer>
+
+  <script>
+    // BUSCADOR MEJORADO
+    const buscador = document.getElementById("buscador");
+    const inputBuscar = document.getElementById("input-buscar");
+    buscador.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const texto = inputBuscar.value.toLowerCase().trim();
+      const tarjetas = document.querySelectorAll(".card");
+      let coincidencias = 0;
+      tarjetas.forEach(card => {
+        const nombre = card.dataset.name.toLowerCase();
+        if(nombre.includes(texto)){
+          card.style.display = "flex";
+          coincidencias++;
+        } else {
+          card.style.display = "none";
+        }
+      });
+      if(coincidencias === 0) alert("No se encontraron productos con ese nombre.");
+    });
+
+    // CARRITO
+    const mensaje = document.getElementById("mensajeCarrito");
+    document.addEventListener("click", function(e){
+      if(e.target.classList.contains("btn") && e.target.textContent.includes("Agregar")){
+        const card = e.target.closest(".card");
+        const nombre = card.dataset.name;
+        const precio = parseInt(card.dataset.price);
+        const imagen = card.querySelector("img").src;
+
+        let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+        const existente = carrito.find(p => p.nombre === nombre);
+        if(existente){ existente.cantidad++; } 
+        else{ carrito.push({nombre, precio, imagen, cantidad:1}); }
+        localStorage.setItem("carrito", JSON.stringify(carrito));
+
+        mensaje.style.display="block";
+        mensaje.textContent=`${nombre} agregado al carrito ✅`;
+        setTimeout(()=>mensaje.style.display="none",2000);
+      }
+    });
+  </script>
+</body>
+</html>
+
+
+     

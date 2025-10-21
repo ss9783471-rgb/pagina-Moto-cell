@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contáctenos - Moto-Cell</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ======= ESTILO GENERAL ======= */
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.6)),
+                  url('https://supercurioso.com/wp-content/uploads/2019/06/Seguro-de-moto-1.jpg')
+                  no-repeat center center/cover;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    a {
+      display: inline-block;
+      margin: 20px;
+      color: #ff3333;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* ======= SECCIÓN DE CONTACTO ======= */
+    .contact-section {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 60px 20px;
+    }
+
+    .contact-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      max-width: 1000px;
+      width: 100%;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+      color: #fff;
+      animation: fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .contact-section h2 {
+      grid-column: 1 / -1;
+      text-align: center;
+      font-size: 2.5rem;
+      color: #ff3333;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+      margin-bottom: 20px;
+    }
+
+    /* ======= FORMULARIO ======= */
+    .contact-form .form-group {
+      margin-bottom: 20px;
+    }
+
+    .contact-form label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      background-color: rgba(255,255,255,0.9);
+      color: #333;
+      box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      outline: none;
+      border: 2px solid #ff3333;
+    }
+
+    .btn-enviar {
+      background-color: #ff3333;
+      color: #fff;
+      padding: 14px 24px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s;
+      width: 100%;
+      box-shadow: 0 4px 12px rgba(255,51,51,0.4);
+    }
+
+    .btn-enviar:hover {
+      background-color: #cc0000;
+      transform: scale(1.05);
+      box-shadow: 0 6px 15px rgba(255,51,51,0.5);
+    }
+
+    /* ======= INFORMACIÓN DE CONTACTO ======= */
+    .contact-info {
+      background-color: rgba(0,0,0,0.3);
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: inset 0 0 15px rgba(0,0,0,0.2);
+    }
+
+    .contact-info p {
+      margin-bottom: 16px;
+      font-size: 1.1rem;
+    }
+
+    .contact-info strong {
+      color: #ff3333;
+    }
+
+    /* ======= MENSAJE DE ÉXITO ======= */
+    .mensaje-exito {
+      display: none;
+      text-align: center;
+      background-color: rgba(40,167,69,0.95);
+      color: #fff;
+      border: none;
+      padding: 25px;
+      border-radius: 10px;
+      margin-top: 25px;
+      font-weight: 700;
+      font-size: 1.4rem;
+      animation: aparecer 0.6s ease;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    }
+
+    @keyframes aparecer {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    /* ======= RESPONSIVO ======= */
+    @media (max-width: 900px) {
+      .contact-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a href="index.html">← Volver al inicio</a>
+
+  <section id="contacto" class="contact-section">
+    <div class="contact-container">
+      <h2>Contáctenos</h2>
+
+      <!-- FORMULARIO -->
+      <form id="formContacto" class="contact-form">
+        <div class="form-group">
+          <label for="nombre">Nombre completo</label>
+          <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre">
+        </div>
+
+        <div class="form-group">
+          <label for="email">Correo electrónico</label>
+          <input type="email" id="email" name="email" required placeholder="tucorreo@ejemplo.com">
+        </div>
+
+        <div class="form-group">
+          <label for="mensaje">Mensaje</label>
+          <textarea id="mensaje" name="mensaje" rows="5" required placeholder="Escribe tu mensaje aquí…"></textarea>
+        </div>
+
+        <button type="submit" class="btn-enviar">Enviar Mensaje</button>
+
+        <div class="mensaje-exito" id="mensajeExito">
+          ✅ <strong>Su mensaje ha sido enviado a Moto-Cell.</strong><br>
+          ¡Gracias por contactarnos! 🚀
+        </div>
+      </form>
+
+      <!-- INFORMACIÓN DE CONTACTO -->
+      <div class="contact-info">
+        <p><strong>Teléfono:</strong> 8888-8888</p>
+        <p><strong>Email:</strong> info@moto-cell.cr</p>
+        <p><strong>Dirección:</strong> Avenida Principal #123, Cartago, Costa Rica</p>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const form = document.getElementById('formContacto');
+    const mensajeExito = document.getElementById('mensajeExito');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const nombre = document.getElementById('nombre').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const mensaje = document.getElementById('mensaje').value.trim();
+
+      if (nombre === '' || email === '' || mensaje === '') {
+        alert('Por favor, completa todos los campos.');
+        return;
+      }
+
+      // Simular envío
+      form.reset();
+      mensajeExito.style.display = 'block';
+
+      // Ocultar el mensaje luego de 6 segundos
+      setTimeout(() => {
+        mensajeExito.style.display = 'none';
+      }, 6000);
+    });
+  </script>
+</body>
+</html>
+
+  

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Registro de Compra - Moto-Cell</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: linear-gradient(90deg, #f5f5f5, #ffffff);
+      color: #222;
+    }
+
+    .contenedor {
+      max-width: 720px;
+      margin: 48px auto;
+      background: #fff;
+      border-radius: 14px;
+      padding: 26px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+      transition: 0.3s;
+    }
+
+    h2 {
+      color: #c40000;
+      margin: 0 0 10px;
+      text-align: center;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    input, select {
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    button {
+      background: #c40000;
+      color: #fff;
+      border: 0;
+      padding: 12px;
+      border-radius: 10px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #a10000;
+    }
+
+    .mensaje-exito, #pagoTarjeta, #mensajeEfectivo {
+      display: none;
+      background: #fff3f3;
+      color: #333;
+      border: 2px solid #f5c6cb;
+      padding: 18px;
+      border-radius: 12px;
+      margin-top: 18px;
+    }
+
+    .resumen p {
+      margin: 6px 0;
+      font-weight: 600;
+    }
+
+    .btn-secundario {
+      background: #333;
+      margin-top: 10px;
+    }
+
+    .btn-secundario:hover {
+      background: #000;
+    }
+
+    #pagoTarjeta input {
+      width: 95%;
+      margin: 8px 0;
+    }
+
+    .centrado {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="contenedor">
+    <h2>Registro de compra</h2>
+
+    <div id="resumen-producto">
+      <p><strong>Producto:</strong> <span id="producto">Moto</span></p>
+      <p><strong>Precio:</strong> <span id="precio">₡0</span></p>
+    </div>
+
+    <!-- FORMULARIO DE REGISTRO -->
+    <form id="formulario-registro">
+      <input type="text" id="nombre" placeholder="Nombre completo" required>
+      <input type="text" id="cedula" placeholder="Cédula" required>
+      <input type="email" id="correo" placeholder="Correo electrónico" required>
+      <input type="text" id="direccion" placeholder="Dirección" required>
+      <input type="tel" id="telefono" placeholder="Teléfono" required>
+      <input type="text" id="ciudad" placeholder="Ciudad" required>
+      <select id="formaPago" required>
+        <option value="">Selecciona forma de pago</option>
+        <option value="Tarjeta">Tarjeta de Crédito / Débito</option>
+        <option value="Transferencia">Transferencia</option>
+        <option value="Efectivo">Efectivo</option>
+      </select>
+      <button type="submit">Confirmar registro</button>
+    </form>
+
+    <!-- FORMULARIO DE PAGO CON TARJETA -->
+    <div id="pagoTarjeta">
+      <h3 class="centrado">💳 Pago con tarjeta</h3>
+      <input type="text" id="nombreTarjeta" placeholder="Nombre en la tarjeta" required>
+      <input type="text" id="numeroTarjeta" placeholder="Número de tarjeta" maxlength="16" required>
+      <input type="text" id="fechaExp" placeholder="MM/AA" maxlength="5" required>
+      <input type="text" id="cvv" placeholder="CVV" maxlength="3" required>
+      <button id="confirmarPagoTarjeta">Pagar ahora</button>
+      <button class="btn-secundario" id="volverRegistro">Volver al registro</button>
+    </div>
+
+    <!-- MENSAJE DE EFECTIVO O TRANSFERENCIA -->
+    <div id="mensajeEfectivo" class="centrado">
+      <h3>✅ Registro completado</h3>
+      <p>Gracias por tu compra. Tu pedido será procesado y recibirás confirmación por correo.</p>
+      <button class="btn-secundario" onclick="window.location.href='catalogo.html'">Volver al catálogo</button>
+    </div>
+
+    <!-- MENSAJE FINAL DE TARJETA -->
+    <div class="mensaje-exito" id="mensaje-exito">
+      <h3>✅ Pago realizado con éxito</h3>
+      <p>Gracias por tu compra, <span id="clienteFinal"></span>.</p>
+      <p>Recibirás un correo con el comprobante de tu transacción.</p>
+      <button class="btn-secundario" onclick="window.location.href='catalogo.html'">Volver al catálogo</button>
+    </div>
+  </div>
+
+  <script>
+    // Leer parámetros de la URL
+    const params = new URLSearchParams(window.location.search);
+    const productoParam = params.get('producto') || "Repuesto";
+    const precioParam = params.get('precio');
+
+    document.getElementById("producto").textContent = productoParam;
+
+    // Calcular precio
+    let precio = 0;
+    if (precioParam && !isNaN(Number(precioParam))) {
+      precio = Number(precioParam);
+    } else {
+      switch (productoParam) {
+        case "Casco Deportivo": precio = 35000; break;
+        case "Llanta Ultra": precio = 28500; break;
+        case "Shocks": precio = 35000; break;
+        default: precio = 0;
+      }
+    }
+
+    const formato = new Intl.NumberFormat('es-CR').format(precio);
+    document.getElementById("precio").textContent = `₡${formato}`;
+
+    // --- MANEJO DE FORMULARIO PRINCIPAL ---
+    const form = document.getElementById("formulario-registro");
+    const pagoTarjeta = document.getElementById("pagoTarjeta");
+    const mensajeEfectivo = document.getElementById("mensajeEfectivo");
+    const mensajeExito = document.getElementById("mensaje-exito");
+
+    form.addEventListener("submit", e => {
+      e.preventDefault();
+      const formaPago = document.getElementById("formaPago").value;
+      const nombre = document.getElementById("nombre").value.trim();
+      localStorage.setItem("clienteMotoCell", nombre);
+
+      form.style.display = "none";
+
+      if (formaPago === "Tarjeta") {
+        pagoTarjeta.style.display = "block";
+      } else {
+        mensajeEfectivo.style.display = "block";
+      }
+    });
+
+    // --- PAGO CON TARJETA ---
+    document.getElementById("confirmarPagoTarjeta").addEventListener("click", () => {
+      const nombreTarjeta = document.getElementById("nombreTarjeta").value.trim();
+      const numero = document.getElementById("numeroTarjeta").value.trim();
+      const fecha = document.getElementById("fechaExp").value.trim();
+      const cvv = document.getElementById("cvv").value.trim();
+
+      if (!nombreTarjeta || !numero || !fecha || !cvv) {
+        alert("⚠️ Por favor completa todos los campos de la tarjeta.");
+        return;
+      }
+
+      pagoTarjeta.style.display = "none";
+      mensajeExito.style.display = "block";
+      document.getElementById("clienteFinal").textContent = localStorage.getItem("clienteMotoCell");
+    });
+
+    document.getElementById("volverRegistro").addEventListener("click", () => {
+      pagoTarjeta.style.display = "none";
+      form.style.display = "block";
+    });
+  </script>
+</body>
+</html>
