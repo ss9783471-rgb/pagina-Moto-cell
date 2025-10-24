@@ -244,17 +244,38 @@ document.querySelector('.prev-sobre').onclick=()=>{iSobre=(iSobre-1+items.length
 document.querySelector('.next-sobre').onclick=()=>{iSobre=(iSobre+1)%items.length;slidesSobre.style.transform=`translateX(-${iSobre*100}%)`;}
 
 /* ===== SESIÓN ===== */
-function obtenerSesion(){return JSON.parse(localStorage.getItem("sesionActiva"));}
-const btnSesion=document.getElementById("btnSesion");
-function actualizarSesion(){
-  const s=obtenerSesion();
-  if(s){btnSesion.textContent="Cerrar Sesión";btnSesion.href="#";}
-  else{btnSesion.textContent="Iniciar Sesión";btnSesion.href="login.html";}
+/* ===== SESIÓN ===== */
+function obtenerSesion() {
+  return JSON.parse(localStorage.getItem("sesionActiva"));
 }
-document.addEventListener("DOMContentLoaded",actualizarSesion);
-btnSesion.onclick=(e)=>{
-  const s=obtenerSesion();
-  if(s){e.preventDefault();localStorage.removeItem("sesion cerrada");actualizarSesion();alert("Sesión cerrada.");}
+
+const btnSesion = document.getElementById("btnSesion");
+
+function actualizarSesion() {
+  const sesion = obtenerSesion();
+  if (btnSesion) {
+    if (sesion) {
+      btnSesion.textContent = "Cerrar Sesión";
+      btnSesion.href = "#";
+    } else {
+      btnSesion.textContent = "Iniciar Sesión";
+      btnSesion.href = "login.html";
+    }
+  }
+}
+
+document.addEventListener("DOMContentLoaded", actualizarSesion);
+
+if (btnSesion) {
+  btnSesion.addEventListener("click", (e) => {
+    const sesion = obtenerSesion();
+    if (sesion) {
+      e.preventDefault();
+      localStorage.removeItem("sesionActiva"); // ✅ cerrar correctamente
+      actualizarSesion();
+      alert("Sesión cerrada exitosamente.");
+    }
+  });
 }
 
 /* ===== MODAL FUNCIONAL ===== */
