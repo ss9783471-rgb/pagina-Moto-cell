@@ -112,7 +112,7 @@ footer { background:#000; color:#fff; text-align:center; padding:15px 20px; font
     <div class="overlay">
       <h1>MOTO-CELL</h1>
       <h3>Pasión por la velocidad y el estilo</h3>
-      <button class="boton-link verCatalogoBtn">Ver Catálogo</button>
+      <li><a href="./catalogo.html" id="btnSesion" style="background:#c40000;color:white;padding:10px 18px;border-radius:8px;font-weight:bold;">ver catalogo</a></li>
     </div>
   </div>
   <div class="slide">
@@ -120,7 +120,7 @@ footer { background:#000; color:#fff; text-align:center; padding:15px 20px; font
     <div class="overlay">
       <h1>MOTOS DEPORTIVAS</h1>
       <h3>Velocidad y diseño en cada ruta</h3>
-      <button class="boton-link verCatalogoBtn">Ver Catálogo</button>
+      <li><a href="./catalogo.html" id="btnSesion" style="background:#c40000;color:white;padding:10px 18px;border-radius:8px;font-weight:bold;">ver catalogo</a></li>
     </div>
   </div>
   <div class="slide">
@@ -128,7 +128,7 @@ footer { background:#000; color:#fff; text-align:center; padding:15px 20px; font
     <div class="overlay">
       <h1>ACCESORIOS PREMIUM</h1>
       <h3>Todo para tu moto en un solo lugar</h3>
-      <button class="boton-link verCatalogoBtn">Ver Catálogo</button>
+      <li><a href="./catalogo.html" id="btnSesion" style="background:#c40000;color:white;padding:10px 18px;border-radius:8px;font-weight:bold;">ver catalogo</a></li>
     </div>
   </div>
   <button class="prev">&#10094;</button>
@@ -288,7 +288,7 @@ function actualizarContadorCarrito(){
 }
 document.addEventListener("DOMContentLoaded", actualizarContadorCarrito);
 
-// Ejemplo de cómo agregar productos (botones o links en catálogo)
+// (botones o links en catálogo)
 document.querySelectorAll(".verCatalogoBtn").forEach(btn=>{
   btn.addEventListener("click",(e)=>{
     if(!obtenerSesion()){
