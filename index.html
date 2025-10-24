@@ -123,7 +123,7 @@ footer { background:#000; color:#fff; text-align:center; padding:15px 20px; font
 <!-- ===== MODAL ===== -->
 <div class="modal" id="modalSesion">
   <div class="modal-contenido">
-    <h2>La  sesión no esta iniciada</h2>
+    <h2>La sesión no esta iniciada</h2>
     <p>Debes iniciar sesión para acceder al catálogo.</p>
     <div class="modal-botones">
       <button class="btn-ir-login" id="irLogin">Ir a iniciar sesión</button>
@@ -254,7 +254,7 @@ function actualizarSesion(){
 document.addEventListener("DOMContentLoaded",actualizarSesion);
 btnSesion.onclick=(e)=>{
   const s=obtenerSesion();
-  if(s){e.preventDefault();localStorage.removeItem("sesion cerrada");actualizarSesion();alert("Sesión activa.");}
+  if(s){e.preventDefault();localStorage.removeItem("sesion cerrada");actualizarSesion();alert("Sesión cerrada.");}
 }
 
 /* ===== MODAL FUNCIONAL ===== */
