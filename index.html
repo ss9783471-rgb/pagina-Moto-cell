@@ -1,59 +1,82 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-</body>
-</html>
-<link rel="stylesheet" href="estilo.css" />
-<style>
-* { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
-body { background:#fff; color:#333; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Moto-Cell</title>
+  <link rel="stylesheet" href="estilo.css" />
+  <style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{background:#fff;color:#333;overflow-x:hidden;}
+/* ===== NAVBAR ===== */
+header nav{display:flex;justify-content:space-between;align-items:center;padding:12px 25px;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,0.1);position:sticky;top:0;z-index:1000;}
+.logo{display:flex;align-items:center;gap:10px;}
+.logo img{width:50px;height:50px;}
+.logo h1{color:#c40000;font-size:24px;font-weight:700;}
+nav ul{display:flex;list-style:none;gap:20px;align-items:center;}
+nav ul li a{text-decoration:none;color:#333;font-weight:500;transition:.3s;}
+nav ul li a:hover{color:#c40000;}
+.buscador input{padding:8px;border:1px solid #ccc;border-radius:6px;width:70%;}
+.buscador button{padding:8px 15px;background:#c40000;border:none;color:#fff;border-radius:6px;cursor:pointer;transition:.3s;}
+.buscador button:hover{background:#830c0c;}
+#btnSesion{display:inline-block;text-decoration:none;}
+/* MENÚ HAMBURGUESA */
+.menu-icon{display:none;font-size:28px;cursor:pointer;}
+@media(max-width:768px){
+  nav ul{display:none;flex-direction:column;background:#fff;width:100%;position:absolute;top:70px;left:0;box-shadow:0 4px 10px rgba(0,0,0,0.1);}
+  nav ul.active{display:flex;}
+  .menu-icon{display:block;}
+  .buscador{display:none;}
+}
 
-/* ====== NAVBAR ====== */
-header nav { display:flex; justify-content:space-between; align-items:center; padding:12px 30px; background:#fff; box-shadow:0 2px 6px rgba(0,0,0,0.1); position:sticky; top:0; z-index:1000; }
-.logo { display:flex; align-items:center; gap:10px; }
-.logo img { width:50px; height:50px; }
-.logo h1 { color:#c40000; font-size:24px; font-weight:700; }
-nav ul { display:flex; list-style:none; gap:20px; align-items:center; }
-nav ul li a { font-weight:500; color:#333; transition:0.3s; text-decoration:none; position:relative; }
-nav ul li a:hover { color:#c40000; }
-.buscador input { padding:8px; border:1px solid #ccc; border-radius:6px; width:70%; }
-.buscador button { padding:8px 15px; background:#c40000; border:none; color:#fff; border-radius:6px; cursor:pointer; transition:0.3s; }
-.buscador button:hover { background:#830c0c; }
-/* BOTÓN SESIÓN */
-#btnSesion { text-decoration:none; display:inline-block; }
+/* ===== CARRUSEL ===== */
+.inicio-contenedor{position:relative;height:90vh;overflow:hidden;}
+.slide{position:absolute;width:100%;height:100%;opacity:0;transition:opacity 1s ease-in-out;}
+.slide.active{opacity:1;z-index:1;}
+.slide img{width:100%;height:100%;object-fit:cover;filter:brightness(0.7);}
+.overlay{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;color:white;}
+.overlay h1{font-size:3rem;text-shadow:2px 2px 8px #000;}
+.overlay h3{font-size:1.3rem;margin:10px 0 25px;text-shadow:1px 1px 5px #000;}
+.boton-link{padding:12px 25px;background:#c40000;color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:bold;transition:0.3s;}
+.boton-link:hover{background:#830c0c;transform:scale(1.05);}
+.prev,.next{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.4);color:#fff;font-size:2rem;border:none;padding:8px 12px;cursor:pointer;border-radius:5px;transition:.3s;z-index:2;}
+.prev:hover,.next:hover{background:rgba(0,0,0,0.7);}
+.prev{left:20px;}
+.next{right:20px;}
+@media(max-width:768px){
+  .overlay h1{font-size:2rem;}
+  .overlay h3{font-size:1rem;}
+}
 
-/* CARRUSEL PRINCIPAL */
-.inicio-contenedor { position:relative; height:90vh; overflow:hidden; }
-.slide { position:absolute; width:100%; height:100%; opacity:0; transition:opacity 1s ease-in-out; }
-.slide.active { opacity:1; z-index:1; }
-.slide img { width:100%; height:100%; object-fit:cover; filter:brightness(0.7); }
-.overlay { position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); text-align:center; color:white; }
-.overlay h1 { font-size:3rem; text-shadow:2px 2px 8px #000; letter-spacing:2px; }
-.overlay h3 { font-size:1.3rem; margin:10px 0 25px; text-shadow:1px 1px 5px #000; }
-.boton-link { padding:12px 25px; background:#c40000; color:#fff; border:none; border-radius:8px; cursor:pointer; font-weight:bold; transition:0.3s; }
-.boton-link:hover { background:#830c0c; transform:scale(1.05); }
-.prev, .next { position:absolute; top:50%; transform:translateY(-50%); background:rgba(0,0,0,0.4); color:#fff; font-size:2rem; border:none; padding:8px 12px; cursor:pointer; border-radius:5px; transition:0.3s; z-index:2; }
-.prev:hover, .next:hover { background:rgba(0,0,0,0.7); }
-.prev { left:20px; }
-.next { right:20px; }
+/* ===== MODAL ===== */
+.modal{
+  display:none;position:fixed;z-index:2000;left:0;top:0;width:100%;height:100%;
+  background:rgba(0,0,0,0.6);justify-content:center;align-items:center;
+}
+.modal-contenido{
+  background:white;padding:25px;border-radius:10px;text-align:center;
+  width:90%;max-width:400px;box-shadow:0 5px 25px rgba(0,0,0,0.3);
+}
+.modal-contenido h2{color:#c40000;margin-bottom:10px;}
+.modal-contenido p{margin-bottom:20px;}
+.modal-botones button{
+  padding:10px 18px;margin:0 10px;border:none;border-radius:6px;cursor:pointer;
+}
+.btn-ir-login{background:#c40000;color:#fff;}
+.btn-cerrar{background:#ccc;}
+.btn-ir-login:hover{background:#830c0c;}
 
-/* SOBRE NOSOTROS */
-.titulo-previo-sobre { text-align:center; font-size:2.8rem; color:#c40000; margin:80px 0 40px; font-weight:800; text-transform:uppercase; }
-#sobre-nosotros { background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url("https://img.freepik.com/foto-gratis/primer-plano-casco-motocicleta_23-2151574395.jpg?w=740&q=80") center/cover; padding:120px 20px; display:flex; justify-content:center; align-items:center; color:white; }
-.carrusel-sobre { max-width:950px; overflow:hidden; position:relative; }
-.slides-sobre { display:flex; transition:transform 0.6s ease-in-out; }
-.slide-sobre { min-width:100%; background:#fff; color:#333; border-radius:15px; padding:50px; text-align:center; box-shadow:0 10px 25px rgba(0,0,0,0.2); }
-.slide-sobre img { width:100%; max-width:450px; border-radius:10px; margin-bottom:25px; }
-.slide-sobre h3 { color:#c40000; margin-bottom:10px; font-size:1.6rem; }
-.slide-sobre p { font-size:1rem; line-height:1.6; }
-.prev-sobre, .next-sobre { position:absolute; top:50%; transform:translateY(-50%); background:rgba(0,0,0,0.5); color:white; font-size:2rem; border:none; padding:8px 15px; cursor:pointer; border-radius:6px; transition:0.3s; }
-.prev-sobre:hover, .next-sobre:hover { background:rgba(0,0,0,0.8); }
-.prev-sobre { left:10px; }
-.next-sobre { right:10px; }
+/* ===== SOBRE NOSOTROS ===== */
+.titulo-previo-sobre{text-align:center;font-size:2.8rem;color:#c40000;margin:80px 0 40px;font-weight:800;text-transform:uppercase;}
+#sobre-nosotros{background:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),url("https://img.freepik.com/foto-gratis/primer-plano-casco-motocicleta_23-2151574395.jpg?w=740&q=80") center/cover;padding:120px 20px;display:flex;justify-content:center;align-items:center;color:white;}
+.carrusel-sobre{max-width:950px;overflow:hidden;position:relative;}
+.slides-sobre{display:flex;transition:transform .6s ease-in-out;}
+.slide-sobre{min-width:100%;background:#fff;color:#333;border-radius:15px;padding:50px;text-align:center;box-shadow:0 10px 25px rgba(0,0,0,0.2);}
+.slide-sobre img{width:100%;max-width:450px;border-radius:10px;margin-bottom:25px;}
+.slide-sobre h3{color:#c40000;margin-bottom:10px;font-size:1.6rem;}
+.prev-sobre,.next-sobre{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.5);color:white;font-size:2rem;border:none;padding:8px 15px;cursor:pointer;border-radius:6px;}
+.prev-sobre{left:10px;}
+.next-sobre{right:10px;}
 
 /* COMENTARIOS */
 .comentarios-contenedor { display:flex; gap:20px; overflow-x:auto; padding-bottom:10px; justify-content:center; flex-wrap:wrap; }
@@ -74,67 +97,70 @@ nav ul li a:hover { color:#c40000; }
 .redes-sociales a { color:#c40000; margin:0 10px; transition:0.3s; }
 .redes-sociales a:hover { color:#fff; }
 footer { background:#000; color:#fff; text-align:center; padding:15px 20px; font-size:0.9rem; }
-
-/* RESPONSIVE */
-@media(max-width:768px){
-  .overlay h1{font-size:2rem;}
-  .overlay h3{font-size:1rem;}
-  .buscador{display:none;}
-  .comentarios-contenedor{flex-wrap:wrap;}
-}
 </style>
 </head>
+
 <body>
 <header>
   <nav>
-    <div class="logo"><img src="./moto.png" alt="Logo"><h1>Moto-Cell</h1></div>
-    <form class="buscador" onsubmit="buscar(); return false;">
+    <div class="logo"><img src="./moto.png"><h1>Moto-Cell</h1></div>
+    <div class="menu-icon" id="menuToggle">☰</div>
+    <form class="buscador" onsubmit="buscar();return false;">
       <input type="text" id="inputBusqueda" placeholder="Buscar...">
       <button type="submit">Buscar</button>
     </form>
-    <ul>
+    <ul id="menuLista">
       <li><a href="#inicio">Inicio</a></li>
       <li><a href="servicios.html">Servicios</a></li>
-      <li><a href="catalogo.html" id="linkCatalogo">Productos</a></li>
+      <li><a href="catalogo.html" id="verCatalogo">Productos</a></li>
       <li><a href="contactenos.html">Contáctenos</a></li>
-      <li><a href="carrito.html" style="position:relative;"> Carrito 🛒
-        <span id="contador-carrito" style="position:absolute;top:-8px;right:-12px;background:#c40000;color:white;border-radius:50%;padding:2px 7px;font-size:12px;">0</span>
-      </a></li>
+      <li><a href="carrito.html" style="position:relative;">Carrito 🛒<span id="contador-carrito" style="position:absolute;top:-8px;right:-12px;background:#c40000;color:white;border-radius:50%;padding:2px 7px;font-size:12px;">0</span></a></li>
       <li><a href="#" id="btnSesion" style="background:#c40000;color:white;padding:10px 18px;border-radius:8px;font-weight:bold;">Iniciar Sesión</a></li>
     </ul>
   </nav>
 </header>
 
-<!-- CARRUSEL PRINCIPAL -->
+<!-- ===== MODAL ===== -->
+<div class="modal" id="modalSesion">
+  <div class="modal-contenido">
+    <h2>Acceso restringido</h2>
+    <p>Debes iniciar sesión para acceder al catálogo.</p>
+    <div class="modal-botones">
+      <button class="btn-ir-login" id="irLogin">Ir a iniciar sesión</button>
+      <button class="btn-cerrar" id="cerrarModal">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== CARRUSEL ===== -->
 <section id="inicio" class="inicio-contenedor">
   <div class="slide active">
-    <img src="https://p4.wallpaperbetter.com/wallpaper/362/277/203/bikes-motorcycle-1920x1080-cool-wallpaper-preview.jpg" alt="">
+    <img src="https://p4.wallpaperbetter.com/wallpaper/362/277/203/bikes-motorcycle-1920x1080-cool-wallpaper-preview.jpg">
     <div class="overlay">
       <h1>MOTO-CELL</h1>
       <h3>Pasión por la velocidad y el estilo</h3>
-      <li><a href="./catalogo.html" id="btnSesion" style="background:#c40000;color:white;padding:10px 18px;border-radius:8px;font-weight:bold;">ver catalogo</a></li>
+      <button class="boton-link" id="catalogoBtn">Ver Catálogo</button>
     </div>
   </div>
   <div class="slide">
-    <img src="https://wallpapers.com/images/hd/white-1920x1080-motorcycle-4es0cvyct70jia71.jpg" alt="">
+    <img src="https://wallpapers.com/images/hd/white-1920x1080-motorcycle-4es0cvyct70jia71.jpg">
     <div class="overlay">
       <h1>MOTOS DEPORTIVAS</h1>
       <h3>Velocidad y diseño en cada ruta</h3>
-      <li><a href="./catalogo.html" id="btnSesion" style="background:#c40000;color:white;padding:10px 18px;border-radius:8px;font-weight:bold;">ver catalogo</a></li>
+      <button class="boton-link" id="catalogoBtn2">Ver Catálogo</button>
     </div>
   </div>
   <div class="slide">
-    <img src="https://img.freepik.com/foto-gratis/moto-genial-al-aire-libre_23-2150781538.jpg?semt=ais_hybrid&w=740&q=80" alt="">
+    <img src="https://img.freepik.com/foto-gratis/moto-genial-al-aire-libre_23-2150781538.jpg?semt=ais_hybrid&w=740&q=80">
     <div class="overlay">
       <h1>ACCESORIOS PREMIUM</h1>
       <h3>Todo para tu moto en un solo lugar</h3>
-      <li><a href="./catalogo.html" id="btnSesion" style="background:#c40000;color:white;padding:10px 18px;border-radius:8px;font-weight:bold;">ver catalogo</a></li>
+      <button class="boton-link" id="catalogoBtn3">Ver Catálogo</button>
     </div>
   </div>
   <button class="prev">&#10094;</button>
   <button class="next">&#10095;</button>
 </section>
-
 <!-- SOBRE NOSOTROS -->
 <h2 class="titulo-previo-sobre">Sobre Nosotros</h2>
 <section id="sobre-nosotros">
@@ -208,96 +234,58 @@ footer { background:#000; color:#fff; text-align:center; padding:15px 20px; font
 </footer>
 
 <script>
-// ===== CARRUSEL PRINCIPAL =====
-const slides = document.querySelectorAll('.slide');
-let currentSlide = 0;
-function mostrarSlide(index){
-  slides.forEach(s=>s.classList.remove('active'));
-  slides[index].classList.add('active');
-}
-document.querySelector('.prev').addEventListener('click', ()=>{
-  currentSlide=(currentSlide-1+slides.length)%slides.length;
-  mostrarSlide(currentSlide);
-});
-document.querySelector('.next').addEventListener('click', ()=>{
-  currentSlide=(currentSlide+1)%slides.length;
-  mostrarSlide(currentSlide);
-});
+const slides=document.querySelectorAll('.slide');let currentSlide=0;
+function mostrarSlide(i){slides.forEach(s=>s.classList.remove('active'));slides[i].classList.add('active');}
+document.querySelector('.prev').onclick=()=>{currentSlide=(currentSlide-1+slides.length)%slides.length;mostrarSlide(currentSlide);}
+document.querySelector('.next').onclick=()=>{currentSlide=(currentSlide+1)%slides.length;mostrarSlide(currentSlide);}
 
-// ===== CARRUSEL SOBRE NOSOTROS =====
-const slidesSobre = document.querySelector('.slides-sobre');
-const slideSobreItems = document.querySelectorAll('.slide-sobre');
-let indexSobre = 0;
-function mostrarSobre(){
-  slidesSobre.style.transform=`translateX(-${indexSobre*100}%)`;
-}
-document.querySelector('.prev-sobre').addEventListener('click', ()=>{
-  indexSobre=(indexSobre-1+slideSobreItems.length)%slideSobreItems.length;
-  mostrarSobre();
-});
-document.querySelector('.next-sobre').addEventListener('click', ()=>{
-  indexSobre=(indexSobre+1)%slideSobreItems.length;
-  mostrarSobre();
-});
+const slidesSobre=document.querySelector('.slides-sobre');const items=document.querySelectorAll('.slide-sobre');let iSobre=0;
+document.querySelector('.prev-sobre').onclick=()=>{iSobre=(iSobre-1+items.length)%items.length;slidesSobre.style.transform=`translateX(-${iSobre*100}%)`;}
+document.querySelector('.next-sobre').onclick=()=>{iSobre=(iSobre+1)%items.length;slidesSobre.style.transform=`translateX(-${iSobre*100}%)`;}
 
-// ===== BUSCADOR =====
-function buscar(){
-  const input=document.getElementById('inputBusqueda').value.toLowerCase();
-  alert(`Buscando: ${input}`);
+/* ===== SESIÓN ===== */
+function obtenerSesion(){return JSON.parse(localStorage.getItem("sesionActiva"));}
+const btnSesion=document.getElementById("btnSesion");
+function actualizarSesion(){
+  const s=obtenerSesion();
+  if(s){btnSesion.textContent="Cerrar Sesión";btnSesion.href="#";}
+  else{btnSesion.textContent="Iniciar Sesión";btnSesion.href="login.html";}
+}
+document.addEventListener("DOMContentLoaded",actualizarSesion);
+btnSesion.onclick=(e)=>{
+  const s=obtenerSesion();
+  if(s){e.preventDefault();localStorage.removeItem("sesionActiva");actualizarSesion();alert("Sesión cerrada.");}
 }
 
-// ===== SESIÓN =====
-const btnSesion = document.getElementById("btnSesion");
-function obtenerSesion(){ 
-  const sesion=JSON.parse(localStorage.getItem("sesionActiva")); 
-  return sesion&&sesion.email?sesion:null; 
-}
-function actualizarSesion(){ 
-  const sesion=obtenerSesion(); 
-  if(sesion){ 
-    btnSesion.textContent="Cerrar Sesión"; 
-    btnSesion.href="#"; 
-  } else { 
-    btnSesion.textContent="Iniciar Sesión"; 
-    btnSesion.href="login.html"; 
-  } 
-}
-document.addEventListener("DOMContentLoaded", actualizarSesion);
-btnSesion.addEventListener("click",(e)=>{
-  if(obtenerSesion()){
-    e.preventDefault();
-    localStorage.removeItem("sesionActiva");
-    actualizarSesion();
-    alert("Has cerrado sesión");
-  }
-});
+/* ===== MODAL FUNCIONAL ===== */
+const modal=document.getElementById("modalSesion");
+const cerrarModal=document.getElementById("cerrarModal");
+const irLogin=document.getElementById("irLogin");
+cerrarModal.onclick=()=>modal.style.display="none";
+irLogin.onclick=()=>window.location.href="login.html";
 
-// ===== CARRITO CON CANTIDADES =====
-function agregarAlCarrito(producto){
-  const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-  const index = carrito.findIndex(item=>item.id===producto.id);
-  if(index!==-1){ carrito[index].cantidad += producto.cantidad; }
-  else { carrito.push(producto); }
-  localStorage.setItem("carrito", JSON.stringify(carrito));
-  actualizarContadorCarrito();
+function verificarSesionCatalogo(){
+  if(!obtenerSesion()){modal.style.display="flex";}
+  else{window.location.href="catalogo.html";}
 }
+document.getElementById("verCatalogo").onclick=(e)=>{e.preventDefault();verificarSesionCatalogo();}
+document.getElementById("catalogoBtn").onclick=verificarSesionCatalogo;
+document.getElementById("catalogoBtn2").onclick=verificarSesionCatalogo;
+document.getElementById("catalogoBtn3").onclick=verificarSesionCatalogo;
+
+/* ===== MENÚ RESPONSIVE ===== */
+const menuIcon=document.getElementById("menuToggle");
+const menuLista=document.getElementById("menuLista");
+menuIcon.onclick=()=>menuLista.classList.toggle("active");
+
+/* ===== CARRITO ===== */
 function actualizarContadorCarrito(){
-  const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-  const total = carrito.reduce((acc, item)=> acc + item.cantidad, 0);
-  document.getElementById("contador-carrito").textContent = total;
+  const c=JSON.parse(localStorage.getItem("carrito"))||[];
+  document.getElementById("contador-carrito").textContent=c.reduce((a,i)=>a+i.cantidad,0);
 }
-document.addEventListener("DOMContentLoaded", actualizarContadorCarrito);
-
-// (botones o links en catálogo)
-document.querySelectorAll(".verCatalogoBtn").forEach(btn=>{
-  btn.addEventListener("click",(e)=>{
-    if(!obtenerSesion()){
-      alert("Debes iniciar sesión para ver el catálogo.");
-    } else {
-    }
-  });
-});
+document.addEventListener("DOMContentLoaded",actualizarContadorCarrito);
 </script>
 </body>
 </html>
+
 
